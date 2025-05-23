@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Copa Patota</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('cruzafofoleague.png'); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    h1 {
+  background-color: rgba(0, 0, 0, 0.4); 
+  padding: 15px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+  margin-right: 17px;
+}
+
+    #diasFaltando {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    #contador {
+      font-size: 2.5rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>Falta somente <span id="diasFaltando">X</span> dias para a Cruza Fofo League</h1>
+  <div id="contador">00d 00h 00m 00s</div>
+
+  <script>
+    const destino = new Date("2025-05-25T17:00:00");
+
+    function atualizarContagem() {
+      const agora = new Date();
+      const diferenca = destino - agora;
+
+      if (diferenca <= 0) {
+        document.getElementById("contador").innerText = "Aêêê! Chegou o dia!";
+        document.getElementById("diasFaltando").innerText = "0";
+        return;
+      }
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferenca / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferenca / 1000) % 60);
+
+      document.getElementById("diasFaltando").innerText = dias;
+      document.getElementById("contador").innerText =
+        `${String(dias).padStart(2, '0')}d ` +
+        `${String(horas).padStart(2, '0')}h ` +
+        `${String(minutos).padStart(2, '0')}m ` +
+        `${String(segundos).padStart(2, '0')}s`;
+    }
+
+    atualizarContagem();
+    setInterval(atualizarContagem, 1000);
+  </script>
+</body>
+</html>
